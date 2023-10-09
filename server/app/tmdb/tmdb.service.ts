@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { AxiosResponse } from 'axios';
-import { firstValueFrom, lastValueFrom } from 'rxjs';
+import { firstValueFrom, lastValueFrom, map } from 'rxjs';
 
 @Injectable()
 export class TmdbService {
@@ -13,9 +13,18 @@ export class TmdbService {
     getMovies2(): string {
         return "movies";
     }
+
+    async getMovies() {
+        const url = `${this.apiUrl}/${this.path}&${this.apiKey}`;
+        const result = await firstValueFrom(
+            this.httpService.get(url).pipe(map((response) => response.data)),
+          );
+        console.log(result);
+        return result;
+    }
     
     //https://api.themoviedb.org/3/movie/550?api_key=03c2ba90603897e46afbaff648e6fd60
-    async getMovies() {
+    async getMovies3() {
         const url = `${this.apiUrl}/${this.path}&${this.apiKey}`;
 
         //  Get TodoTypicodeResponse using axios
