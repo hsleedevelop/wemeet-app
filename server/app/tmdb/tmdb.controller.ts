@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { TmdbService } from './tmdb.service';
 
-@Controller('movie')
+@Controller('movies')
 export class TmdbController {
     constructor(private readonly tmdbService: TmdbService) {}
 
