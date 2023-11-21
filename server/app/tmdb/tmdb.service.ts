@@ -17,9 +17,11 @@ export class TmdbService {
     async getMovies() {
         const url = `${this.apiUrl}/${this.path}&${this.apiKey}`;
         const result = await firstValueFrom(
-            this.httpService.get(url).pipe(map((response) => response.data)),
+            this.httpService.get(url).pipe(map((response) => {
+                return { statusCode: response.status, message: "OK", data: response.data };
+            })),
           );
-        console.log(result);
+        // console.log(result);
         return result;
     }
     
